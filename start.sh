@@ -1,25 +1,25 @@
 #!/bin/bash
 
-# Завершение работы при обнаружении ошибок
+# Exit early on errors
 set -eu
 
-# Python буферизует стандартный вывод. Без этого вы не увидите, что вы "печатаете" в журналах действий
+# Python buffers stdout. Without this, you won't see what you "print" in the Activity Logs
 export PYTHONUNBUFFERED=true
 
-# Установка Python 3 в виртуальную среду
+# Install Python 3 virtual env
 VIRTUALENV=./venv
 
 if [ ! -d $VIRTUALENV ]; then
-  python3.11 -m venv $VIRTUALENV
+  python3 -m venv $VIRTUALENV
 fi
 
-# Установка pip в виртуальную среду
+# Install pip into virtual environment
 if [ ! -f $VIRTUALENV/bin/pip ]; then
-  curl --silent --show-error --retry 5 https://bootstrap.pypa.io/pip/3.11/get-pip.py | $VIRTUALENV/bin/python
+  curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | $VIRTUALENV/bin/python
 fi
 
-# Установка requirements
+# Install the requirements
 $VIRTUALENV/bin/pip install -r requirements.txt
 
-# Запуск нашего приложения
-$VIRTUALENV/bin/python3 main.py
+# Run your glorious application
+$VIRTUALENV/bin/python3 alice1.py
